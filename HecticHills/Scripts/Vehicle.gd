@@ -35,6 +35,7 @@ var gas_just_off
 var engine : AudioStreamPlayer2D
 var brakes : AudioStreamPlayer2D
 var crash : AudioStreamPlayer2D
+var engineIdle : AudioStreamPlayer2D
 
 onready var engine_idle = preload("res://Assets/Sounds/Jeep_idle.wav")
 onready var engine_rev_up = preload("res://Assets/Sounds/Jeep_rev_up.wav")
@@ -56,11 +57,13 @@ func _ready():
 	frontSpring.damping = 0.1 * GameManager.suspension_level
 	backSpring.damping = 0.1 * GameManager.suspension_level
 	engine = find_node("Engine")
+	engineIdle = find_node("Engine_Idle")
 	brakes = find_node("Brakes")
 	crash = find_node("Crash")
 	engine.volume_db = GameManager.soundVolume - 5
 	brakes.volume_db = GameManager.soundVolume - 5
 	crash.volume_db = GameManager.soundVolume - 5
+	engineIdle.volume_db = GameManager.soundVolume - 7
 
 func get_input():
 	rotation_dir = 0
@@ -87,38 +90,49 @@ func _integrate_forces(state):
 	frontWheel.set_applied_torque((rotation_dir * spin_thrust)/(10-GameManager.four_wheel_drive))
 
 func gas():
-	gas = true
-	gas_just = true
+	if not dead:
+		gas = true
+		gas_just = true
+		if engine.playing:
+			engine.playing = false
+			_on_Engine_finished()
 
 func gas_off():
-	gas = false
-	if engine.playing:
-		engine.playing = false
-	_on_Engine_finished()
-	gas_just_off = true
+	if not dead:
+		gas = false
+		gas_just_off = true
+		if engine.playing:
+			engine.playing = false
+			_on_Engine_finished() 
 
 func brake():
-	brake = true
-	brake_just = true
+	if not dead:
+		brake = true
+		brake_just = true
 	
 
 func brake_off():
-	brake = false
+	if not dead:
+		brake = false
 
 func play_sound():
-	print(engine.stream)
+	if dead: 
+		crash.playing = true
+		engineIdle.playing = false
+		engine.playing = false
+		
 	if not GameManager.soundMuted:
 		
 		if brake && !isBrakeSoundPlaying && brake_just: #and in theory is touching the ground 
 			brakes.stream = brake_sound
 			brakes.play()
-		isBrakeSoundPlaying = true
+			isBrakeSoundPlaying = true
 		if gas && !isEngineSoundPlaying:
 			if gas_just:
 				engine.stream = engine_rev_up
 				engine.play()
 				isEngineSoundPlaying = true
-			if gas_just_off:
+			elif gas_just_off:
 				engine.stream = engine_rev_down
 				engine.play()
 				isEngineSoundPlaying = true
