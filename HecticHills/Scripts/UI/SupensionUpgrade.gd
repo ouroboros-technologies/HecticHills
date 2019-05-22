@@ -6,7 +6,7 @@ var clicker
 func _ready():
 	setTicks()
 	gold_cost = GameManager.suspension_level * 1000
-	clicker = find_parent("Menus").find_node("Click")
+	clicker = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().find_node("Click")
 
 func _on_Supension_pressed():
 	if not GameManager.suspension_level > 7:

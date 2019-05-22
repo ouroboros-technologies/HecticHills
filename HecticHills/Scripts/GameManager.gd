@@ -94,6 +94,7 @@ func load_game():
 func _notification(what):
 	#Android
 	if what == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+		print("hello")
 		if currentScene.name == "MainMenu":
 			_gobackrequest()
 		else: 

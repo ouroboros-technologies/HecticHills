@@ -3,7 +3,7 @@ extends TextureButton
 var clicker
 
 func _ready():
-	clicker = find_parent("Menus").find_node("Click")
+	clicker = get_parent().get_parent().get_parent().find_node("Click")
 
 func _on_Quit_pressed():
 	GameManager.saveGameLocal()

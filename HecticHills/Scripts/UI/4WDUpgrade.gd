@@ -6,7 +6,7 @@ var clicker
 func _ready():
 	setTicks()
 	gold_cost = GameManager.four_wheel_drive * 1000
-	clicker = find_parent("Menus").find_node("Click")
+	clicker = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().find_node("Click")
 
 func _on_4WD_pressed():
 	if not GameManager.four_wheel_drive > 7:

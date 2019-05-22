@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Vehicle.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Jeep.png" type="Texture" id=2]
@@ -6,7 +6,9 @@
 [ext_resource path="res://Scripts/CollectibleArea.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/DeathArea.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/GoldRemoval.gd" type="Script" id=6]
-[ext_resource path="res://Assets/Sounds/brake_skid.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/Sounds/Jeep_idle.wav" type="AudioStream" id=7]
+[ext_resource path="res://Packed/Engine_Idle.gd" type="Script" id=8]
+[ext_resource path="res://Assets/Sounds/brake_skid.wav" type="AudioStream" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( -38.17, 17.03, -42.34, 21.67, -47.74, 19.98, -48.12, 18.36, -48.71, 16.81, -49.05, -4.66, -48.57, -4.59, -44.41, -11.57, -20.81, -14.68, 7.41, -12.71, 14.86, 1.18, 22.1, 3.79, 51.84, 3.51, 51.02, 14.92, 43.58, 14.05, 35.62, 14.42, 29.81, 20.64, 27.99, 26.24, -14.94, 26.21, -16.47, 20.6, -19.96, 16.79, -25.22, 14, -32.37, 13.72 )
@@ -114,8 +116,13 @@ shape = SubResource( 5 )
 
 [node name="Engine" type="AudioStreamPlayer2D" parent="."]
 
-[node name="Brakes" type="AudioStreamPlayer2D" parent="."]
+[node name="Engine_Idle" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+autoplay = true
+script = ExtResource( 8 )
+
+[node name="Brakes" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
 attenuation = 1.10957
 
 [node name="Crash" type="AudioStreamPlayer2D" parent="."]
@@ -125,4 +132,5 @@ attenuation = 1.10957
 [connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_DeathArea_body_entered"]
 [connection signal="area_entered" from="GoldRemoval" to="GoldRemoval" method="_on_GoldRemoval_area_entered"]
 [connection signal="finished" from="Engine" to="." method="_on_Engine_finished"]
+[connection signal="finished" from="Engine_Idle" to="Engine_Idle" method="_on_Engine_Idle_finished"]
 [connection signal="finished" from="Brakes" to="." method="_on_Brakes_finished"]

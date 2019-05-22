@@ -4,8 +4,8 @@ var clicker
 var credits
 
 func _ready():
-	clicker = find_parent("Menus").find_node("Click")
-	credits = find_parent("Menus").find_node("CreditsTab")
+	clicker = get_parent().get_parent().get_parent().find_node("Click")
+	credits = get_parent().get_parent().get_parent().find_node("CreditsTab")
 
 func _on_Credits_pressed():
 	credits.visible = not credits.visible

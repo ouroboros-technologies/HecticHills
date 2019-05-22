@@ -305,6 +305,7 @@ attenuation = 1.8025
 script = ExtResource( 28 )
 
 [node name="GameMusic" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
 stream = ExtResource( 29 )
 attenuation = 1.36604
 script = ExtResource( 30 )

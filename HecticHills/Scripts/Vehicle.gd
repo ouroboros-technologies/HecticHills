@@ -28,6 +28,9 @@ var brake = false
 var gas = false
 var isBrakeSoundPlaying
 var isEngineSoundPlaying
+var brake_just
+var gas_just
+var gas_just_off
 
 var engine : AudioStreamPlayer2D
 var brakes : AudioStreamPlayer2D
@@ -55,6 +58,9 @@ func _ready():
 	engine = find_node("Engine")
 	brakes = find_node("Brakes")
 	crash = find_node("Crash")
+	engine.volume_db = GameManager.soundVolume - 5
+	brakes.volume_db = GameManager.soundVolume - 5
+	crash.volume_db = GameManager.soundVolume - 5
 
 func get_input():
 	rotation_dir = 0
@@ -68,11 +74,11 @@ func get_input():
 
 func _process(delta):
 	get_input()
+	play_sound()
 	if abs(positionX  - position.x) > 200:
 		GameManager.increment_score()
 		print(GameManager.score)
 		positionX = position.x
-	play_sound()
 
 func _integrate_forces(state):
 	backWheel.set_applied_force(thrust.rotated(rotation))
@@ -82,26 +88,44 @@ func _integrate_forces(state):
 
 func gas():
 	gas = true
+	gas_just = true
 
 func gas_off():
 	gas = false
+	if engine.playing:
+		engine.playing = false
+	_on_Engine_finished()
+	gas_just_off = true
 
 func brake():
 	brake = true
+	brake_just = true
+	
 
 func brake_off():
 	brake = false
 
 func play_sound():
+	print(engine.stream)
 	if not GameManager.soundMuted:
-		if brake && !isBrakeSoundPlaying:
+		
+		if brake && !isBrakeSoundPlaying && brake_just: #and in theory is touching the ground 
 			brakes.stream = brake_sound
 			brakes.play()
-		isBrakeSoundPlaying = true;
+		isBrakeSoundPlaying = true
 		if gas && !isEngineSoundPlaying:
-			engine.stream = engine_drive
-			engine.play()
-			isEngineSoundPlaying = true;
+			if gas_just:
+				engine.stream = engine_rev_up
+				engine.play()
+				isEngineSoundPlaying = true
+			if gas_just_off:
+				engine.stream = engine_rev_down
+				engine.play()
+				isEngineSoundPlaying = true
+			else:
+				engine.stream = engine_drive
+				engine.play()
+				isEngineSoundPlaying = true
 
 func _on_BackWheel_body_entered(body):
 	if body.name == "Map":
@@ -113,6 +137,12 @@ func _on_BackWheel_body_exited(body):
 
 func _on_Engine_finished():
 	isEngineSoundPlaying = false
+	if gas_just:
+		gas_just = false
+	if gas_just_off:
+		gas_just_off = false
 
 func _on_Brakes_finished():
 	isBrakeSoundPlaying = false
+	brake_just = false
+

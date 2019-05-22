@@ -3,8 +3,7 @@ extends TextureButton
 var clicker
 
 func _ready():
-	print("Clickercalled to set")
-	clicker = find_parent("Menus").find_node("Click")
+	clicker = get_parent().get_parent().get_parent().find_node("Click")
 
 func _on_PlayButton_pressed():
 	if not GameManager.soundMuted: 
