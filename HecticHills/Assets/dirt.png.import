@@ -1,0 +1,13 @@
+[remap]
+
+importer="image"
+type="Image"
+path="res://.import/dirt.png-080c3ebef1c97cf8f08abe0e43389d15.image"
+
+[deps]
+
+source_file="res://Assets/dirt.png"
+dest_files=[ "res://.import/dirt.png-080c3ebef1c97cf8f08abe0e43389d15.image" ]
+
+[params]
+

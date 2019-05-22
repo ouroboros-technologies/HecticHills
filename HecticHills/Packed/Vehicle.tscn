@@ -1,0 +1,128 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scripts/Vehicle.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Jeep.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Jeep_tire.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/CollectibleArea.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/DeathArea.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/GoldRemoval.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Sounds/brake_skid.wav" type="AudioStream" id=7]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( -38.17, 17.03, -42.34, 21.67, -47.74, 19.98, -48.12, 18.36, -48.71, 16.81, -49.05, -4.66, -48.57, -4.59, -44.41, -11.57, -20.81, -14.68, 7.41, -12.71, 14.86, 1.18, 22.1, 3.79, 51.84, 3.51, 51.02, 14.92, 43.58, 14.05, 35.62, 14.42, 29.81, 20.64, 27.99, 26.24, -14.94, 26.21, -16.47, 20.6, -19.96, 16.79, -25.22, 14, -32.37, 13.72 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 12.5185
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 58.1556, 28.9855 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 31.1947, 7.83872 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 10, 595.95 )
+
+[node name="VehicleRoot" type="RigidBody2D"]
+position = Vector2( 544.229, 304.641 )
+mass = 10.0
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1.94663, 6.02148 )
+scale = Vector2( 0.147249, 0.127318 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="FrontSpring" type="DampedSpringJoint2D" parent="."]
+position = Vector2( 38.4801, 14.1163 )
+rotation = -0.174533
+node_a = NodePath("..")
+node_b = NodePath("../FrontWheel")
+length = 10.0
+stiffness = 1.0
+damping = 0.1
+
+[node name="FrontWheel" type="RigidBody2D" parent="."]
+editor/display_folded = true
+position = Vector2( 43.0389, 28.6533 )
+mass = 2.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontWheel"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="FrontWheel"]
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 3 )
+
+[node name="FrontPinJoint" type="PinJoint2D" parent="FrontWheel"]
+node_a = NodePath("../..")
+node_b = NodePath("..")
+softness = 0.4
+
+[node name="BackSpring" type="DampedSpringJoint2D" parent="."]
+position = Vector2( -29.401, 11.7428 )
+node_a = NodePath("..")
+node_b = NodePath("../BackWheel")
+length = 13.0
+stiffness = 1.0
+damping = 0.1
+
+[node name="BackWheel" type="RigidBody2D" parent="."]
+position = Vector2( -29.329, 30.0033 )
+mass = 2.5
+contacts_reported = 1
+contact_monitor = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackWheel"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="BackWheel"]
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 3 )
+
+[node name="BackPinJoint" type="PinJoint2D" parent="BackWheel"]
+node_a = NodePath("../..")
+node_b = NodePath("../../BackWheel")
+softness = 0.4
+
+[node name="CollectibleArea" type="Area2D" parent="."]
+visible = false
+position = Vector2( -0.987198, 13.2678 )
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectibleArea"]
+shape = SubResource( 3 )
+
+[node name="DeathArea" type="Area2D" parent="."]
+position = Vector2( 0, -11.258 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathArea"]
+position = Vector2( -7.1276, 4.81497 )
+shape = SubResource( 4 )
+
+[node name="GoldRemoval" type="Area2D" parent="."]
+position = Vector2( 344.308, 3.17334 )
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoldRemoval"]
+position = Vector2( -876.369, 1.57278 )
+shape = SubResource( 5 )
+
+[node name="Engine" type="AudioStreamPlayer2D" parent="."]
+
+[node name="Brakes" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+attenuation = 1.10957
+
+[node name="Crash" type="AudioStreamPlayer2D" parent="."]
+[connection signal="body_entered" from="BackWheel" to="." method="_on_BackWheel_body_entered"]
+[connection signal="body_exited" from="BackWheel" to="." method="_on_BackWheel_body_exited"]
+[connection signal="body_entered" from="CollectibleArea" to="CollectibleArea" method="_on_CollectibleArea_body_entered"]
+[connection signal="body_entered" from="DeathArea" to="DeathArea" method="_on_DeathArea_body_entered"]
+[connection signal="area_entered" from="GoldRemoval" to="GoldRemoval" method="_on_GoldRemoval_area_entered"]
+[connection signal="finished" from="Engine" to="." method="_on_Engine_finished"]
+[connection signal="finished" from="Brakes" to="." method="_on_Brakes_finished"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Jeep_drive.wav-5080052981be6fe621b0fecd7f3e143b.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/Jeep_drive.wav"
+dest_files=[ "res://.import/Jeep_drive.wav-5080052981be6fe621b0fecd7f3e143b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

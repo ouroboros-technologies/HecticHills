@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/AlexBeroza_-_Kalte_Ohren.wav-7416076d901535e1110ef9857b71781b.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/Music/AlexBeroza_-_Kalte_Ohren.wav"
+dest_files=[ "res://.import/AlexBeroza_-_Kalte_Ohren.wav-7416076d901535e1110ef9857b71781b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

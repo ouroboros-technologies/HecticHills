@@ -1,0 +1,320 @@
+[gd_scene load_steps=32 format=2]
+
+[ext_resource path="res://Assets/Cloud.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Cloud.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Terrain.gd" type="Script" id=3]
+[ext_resource path="res://Assets/layer-1.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/UI/ScoreText.gd" type="Script" id=5]
+[ext_resource path="res://Assets/UI/UI board Large  stone.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/IRONY TITLE  Large.png" type="Texture" id=7]
+[ext_resource path="res://Assets/UI/TextBTN_Big.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/TextBTN_Big_Pressed.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/UI/Restart.gd" type="Script" id=10]
+[ext_resource path="res://Scripts/UI/Return.gd" type="Script" id=11]
+[ext_resource path="res://Assets/BrakePedal_idle.png" type="Texture" id=12]
+[ext_resource path="res://Assets/BrakePedal_pressed.png" type="Texture" id=13]
+[ext_resource path="res://Scripts/Brake.gd" type="Script" id=14]
+[ext_resource path="res://Assets/GasPedal_idle.png" type="Texture" id=15]
+[ext_resource path="res://Assets/GasPedal_pressed.png" type="Texture" id=16]
+[ext_resource path="res://Scripts/Gas.gd" type="Script" id=17]
+[ext_resource path="res://Assets/UI/Exclamation_Gray.png" type="Texture" id=18]
+[ext_resource path="res://Assets/UI/Exclamation_Yellow.png" type="Texture" id=19]
+[ext_resource path="res://Scripts/UI/OptionsInGame.gd" type="Script" id=20]
+[ext_resource path="res://Assets/UI/Close Button.png" type="Texture" id=21]
+[ext_resource path="res://Scripts/UI/Unpause.gd" type="Script" id=22]
+[ext_resource path="res://Assets/UI/BTN_MainMenu.png" type="Texture" id=23]
+[ext_resource path="res://Assets/UI/BTN_MainMenu_Pressed.png" type="Texture" id=24]
+[ext_resource path="res://Scripts/UI/MainMenuReturn.gd" type="Script" id=25]
+[ext_resource path="res://Packed/Vehicle.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Assets/Sounds/SFX/ButtonClick.wav" type="AudioStream" id=27]
+[ext_resource path="res://Scripts/UI/Click.gd" type="Script" id=28]
+[ext_resource path="res://Assets/Sounds/Music/AlexBeroza_-_Kalte_Ohren.wav" type="AudioStream" id=29]
+[ext_resource path="res://Scripts/UI/TitleMusic.gd" type="Script" id=30]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 256.07 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Cloud" type="Sprite" parent="."]
+modulate = Color( 0.8, 0.8, 0.8, 0.611765 )
+position = Vector2( 1158.5, 164.494 )
+scale = Vector2( 0.443995, 0.157992 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Cloud2" type="Sprite" parent="."]
+modulate = Color( 0.8, 0.8, 0.8, 0.611765 )
+position = Vector2( 313.697, -164.72 )
+scale = Vector2( 0.443995, 0.157992 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Cloud3" type="Sprite" parent="."]
+modulate = Color( 0.8, 0.8, 0.8, 0.611765 )
+position = Vector2( 145.009, -50.4474 )
+scale = Vector2( 0.443995, 0.157992 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Terrain" type="Node" parent="."]
+editor/display_folded = true
+script = ExtResource( 3 )
+
+[node name="Line2D" type="Line2D" parent="Terrain"]
+texture_mode = -1086187880
+
+[node name="Map" type="StaticBody2D" parent="Terrain"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.5 )
+motion_mirroring = Vector2( 3072, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 769.502, 183.975 )
+scale = Vector2( 1, 0.525011 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 3072, 1536 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EndPopUp" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+script = ExtResource( 5 )
+
+[node name="BG" type="Control" parent="CanvasLayer/EndPopUp"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = -20.0
+margin_right = 40.0
+margin_bottom = 20.0
+
+[node name="Background" type="Sprite" parent="CanvasLayer/EndPopUp/BG"]
+position = Vector2( -0.284391, -41.4643 )
+scale = Vector2( 0.682295, 0.466028 )
+texture = ExtResource( 6 )
+
+[node name="HL" type="Control" parent="CanvasLayer/EndPopUp"]
+anchor_bottom = 1.0
+margin_left = 512.0
+margin_top = 100.0
+margin_right = 512.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Headline" type="Sprite" parent="CanvasLayer/EndPopUp/HL"]
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 7 )
+
+[node name="Label" type="Label" parent="CanvasLayer/EndPopUp/HL"]
+margin_left = -35.4209
+margin_top = -7.7002
+margin_right = 4.5791
+margin_bottom = 6.2998
+text = "Game Over!"
+
+[node name="Contents" type="VBoxContainer" parent="CanvasLayer/EndPopUp"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -155.698
+margin_top = -125.669
+margin_right = 154.302
+margin_bottom = 15.3307
+custom_constants/separation = 67
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/EndPopUp/Contents"]
+margin_top = 32.0
+margin_right = 310.0
+margin_bottom = 46.0
+custom_constants/separation = 50
+
+[node name="Score" type="Label" parent="CanvasLayer/EndPopUp/Contents/HBoxContainer"]
+margin_right = 118.0
+margin_bottom = 14.0
+text = "You Scored: XXXXX"
+
+[node name="GoldCollected" type="Label" parent="CanvasLayer/EndPopUp/Contents/HBoxContainer"]
+margin_left = 168.0
+margin_right = 310.0
+margin_bottom = 14.0
+text = "Gold Collected: XXXXX"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/EndPopUp/Contents"]
+margin_top = 113.0
+margin_right = 310.0
+margin_bottom = 173.0
+alignment = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="CanvasLayer/EndPopUp/Contents/HBoxContainer2"]
+margin_left = 80.0
+margin_right = 230.0
+margin_bottom = 60.0
+alignment = 1
+
+[node name="Restart" type="TextureButton" parent="CanvasLayer/EndPopUp/Contents/HBoxContainer2/ButtonContainer"]
+visible = false
+margin_right = 150.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 150, 60 )
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+expand = true
+script = ExtResource( 10 )
+
+[node name="Label" type="Label" parent="CanvasLayer/EndPopUp/Contents/HBoxContainer2/ButtonContainer/Restart"]
+margin_right = 147.0
+margin_bottom = 56.0
+text = "Go Again"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Return" type="TextureButton" parent="CanvasLayer/EndPopUp/Contents/HBoxContainer2/ButtonContainer"]
+margin_right = 150.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 150, 60 )
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+expand = true
+script = ExtResource( 11 )
+
+[node name="Label2" type="Label" parent="CanvasLayer/EndPopUp/Contents/HBoxContainer2/ButtonContainer/Return"]
+margin_top = 0.945923
+margin_right = 147.0
+margin_bottom = 56.9459
+text = "Main Menu"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Brake" type="TextureButton" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -200.0
+margin_right = 200.0
+rect_min_size = Vector2( 150, 150 )
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 13 )
+expand = true
+script = ExtResource( 14 )
+
+[node name="Gas" type="TextureButton" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -200.0
+margin_top = -200.0
+rect_min_size = Vector2( 150, 150 )
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 16 )
+expand = true
+script = ExtResource( 17 )
+
+[node name="Options" type="TextureButton" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -108.548
+margin_top = 20.3629
+margin_right = -19.5485
+margin_bottom = 109.363
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 19 )
+expand = true
+script = ExtResource( 20 )
+
+[node name="OptionsInGame" type="Control" parent="CanvasLayer"]
+pause_mode = 2
+editor/display_folded = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="BG" type="Control" parent="CanvasLayer/OptionsInGame"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = -20.0
+margin_right = 40.0
+margin_bottom = 20.0
+
+[node name="Background" type="Sprite" parent="CanvasLayer/OptionsInGame/BG"]
+position = Vector2( -3.30304, -37.6841 )
+scale = Vector2( 0.416896, 0.251099 )
+texture = ExtResource( 6 )
+
+[node name="Unpause" type="TextureButton" parent="CanvasLayer/OptionsInGame"]
+margin_left = 168.526
+margin_top = -126.086
+margin_right = 218.526
+margin_bottom = -76.0862
+rect_min_size = Vector2( 50, 50 )
+texture_normal = ExtResource( 21 )
+expand = true
+script = ExtResource( 22 )
+
+[node name="MainMenu" type="TextureButton" parent="CanvasLayer/OptionsInGame"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -82.45
+margin_right = 100.0
+margin_bottom = -22.45
+texture_normal = ExtResource( 23 )
+texture_pressed = ExtResource( 24 )
+expand = true
+script = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 411.988, 255.419 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="VehicleRoot" parent="." instance=ExtResource( 26 )]
+position = Vector2( 499.625, 275.262 )
+
+[node name="Camera2D" type="Camera2D" parent="VehicleRoot"]
+position = Vector2( 62.369, 27.128 )
+current = true
+
+[node name="Click" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 27 )
+attenuation = 1.8025
+script = ExtResource( 28 )
+
+[node name="GameMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 29 )
+attenuation = 1.36604
+script = ExtResource( 30 )
+[connection signal="visibility_changed" from="CanvasLayer/EndPopUp" to="CanvasLayer/EndPopUp" method="_on_EndPopUp_visibility_changed"]
+[connection signal="pressed" from="CanvasLayer/EndPopUp/Contents/HBoxContainer2/ButtonContainer/Restart" to="CanvasLayer/EndPopUp/Contents/HBoxContainer2/ButtonContainer/Restart" method="_on_Restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/EndPopUp/Contents/HBoxContainer2/ButtonContainer/Return" to="CanvasLayer/EndPopUp/Contents/HBoxContainer2/ButtonContainer/Return" method="_on_Return_pressed"]
+[connection signal="button_down" from="CanvasLayer/Brake" to="CanvasLayer/Brake" method="_on_Brake_button_down"]
+[connection signal="button_up" from="CanvasLayer/Brake" to="CanvasLayer/Brake" method="_on_Brake_button_up"]
+[connection signal="button_down" from="CanvasLayer/Gas" to="CanvasLayer/Gas" method="_on_Gas_button_down"]
+[connection signal="button_up" from="CanvasLayer/Gas" to="CanvasLayer/Gas" method="_on_Gas_button_up"]
+[connection signal="pressed" from="CanvasLayer/Options" to="CanvasLayer/Options" method="_on_Options_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionsInGame/Unpause" to="CanvasLayer/OptionsInGame/Unpause" method="_on_Unpause_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionsInGame/MainMenu" to="CanvasLayer/OptionsInGame/MainMenu" method="_on_MainMenu_pressed"]
