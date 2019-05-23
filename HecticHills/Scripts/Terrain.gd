@@ -54,6 +54,7 @@ func add_hills():
 			hill_point.x = start.x + j * slice + hill_width * i
 			hill_point.y = start.y + height * cos(2 * PI / hill_slices * j) #adjusts wave spawn
 			$Line2D.add_point(hill_point)
+			
 			terrain.append(hill_point)
 			poly.append(hill_point)
 			if totalHills > 1: 

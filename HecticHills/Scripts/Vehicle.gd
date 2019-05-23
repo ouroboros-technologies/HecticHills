@@ -127,19 +127,19 @@ func play_sound():
 			brakes.stream = brake_sound
 			brakes.play()
 			isBrakeSoundPlaying = true
-		if gas && !isEngineSoundPlaying:
-			if gas_just:
-				engine.stream = engine_rev_up
-				engine.play()
-				isEngineSoundPlaying = true
-			elif gas_just_off:
-				engine.stream = engine_rev_down
-				engine.play()
-				isEngineSoundPlaying = true
-			else:
-				engine.stream = engine_drive
-				engine.play()
-				isEngineSoundPlaying = true
+#		if gas && !isEngineSoundPlaying:
+#			if gas_just:
+#				engine.stream = engine_rev_up
+#				engine.play()
+#				isEngineSoundPlaying = true
+#			elif gas_just_off:
+#				engine.stream = engine_rev_down
+#				engine.play()
+#				isEngineSoundPlaying = true
+#			else:
+		engine.stream = engine_drive
+		engine.play()
+		isEngineSoundPlaying = true
 
 func _on_BackWheel_body_entered(body):
 	if body.name == "Map":
