@@ -62,6 +62,7 @@ script = ExtResource( 3 )
 
 [node name="Line2D" type="Line2D" parent="Terrain"]
 default_color = Color( 0.0784314, 1, 0.0470588, 1 )
+texture_mode = -1039925248
 
 [node name="Map" type="StaticBody2D" parent="Terrain"]
 

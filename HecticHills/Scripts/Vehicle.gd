@@ -38,9 +38,7 @@ var crash : AudioStreamPlayer2D
 var engineIdle : AudioStreamPlayer2D
 
 onready var engine_idle = preload("res://Assets/Sounds/Jeep_idle.wav")
-onready var engine_rev_up = preload("res://Assets/Sounds/Jeep_rev_up.wav")
-onready var engine_rev_down = preload("res://Assets/Sounds/Jeep_rev_down.wav")
-onready var engine_drive = preload("res://Assets/Sounds/Jeep_drive.wav")
+
 onready var brake_sound = preload("res://Assets/Sounds/brake_skid.wav")
 
 func _ready():
@@ -137,7 +135,6 @@ func play_sound():
 #				engine.play()
 #				isEngineSoundPlaying = true
 #			else:
-		engine.stream = engine_drive
 		engine.play()
 		isEngineSoundPlaying = true
 
